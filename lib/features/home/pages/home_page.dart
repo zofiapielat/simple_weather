@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_weather/domain/models/weather_model.dart';
+import 'package:simple_weather/domain/repositories/weather_repository.dart';
 import 'package:simple_weather/features/home/cubit/home_cubit.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,7 +12,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(),
+      create: (context) => HomeCubit(
+        WeatherRepository(),
+      )..getLastKnownWeatherModel(),
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           final weatherModel = state.model;
