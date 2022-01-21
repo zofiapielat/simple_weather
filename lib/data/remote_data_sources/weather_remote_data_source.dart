@@ -1,18 +1,20 @@
-import 'dart:convert';
+import 'package:dio/dio.dart';
 
-class WeatherDataSource {
-  Future<Map<String, dynamic>> getWeatherJson({
+class WeatherRemoteDataSource {
+  WeatherRemoteDataSource(this._httpClient);
+
+  final Dio _httpClient;
+
+  Future<Map<String, dynamic>?> getWeatherJson({
     required String city,
   }) async {
-    return json.decode(jsonDataAsString);
-  }
-
-  Future<Map<String, dynamic>> getLastKnownWeatherJson() async {
-    return json.decode(jsonDataAsString);
+    final response = await _httpClient.get<Map<String, dynamic>>(
+        'http://api.weatherapi.com/v1/current.json?key=48bc1821aeb54a88a98134716222101&q=Warsaw&aqi=yes');
+    return response.data;
   }
 }
 
-const jsonDataAsString = '''{
+const jsonString = '''{
   "location": {
     "name": "Warsaw",
     "region": "",
