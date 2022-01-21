@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
                     _DisplayWeatherWidget(
                       weatherModel: weatherModel,
                     ),
-                  const _SearchWidget(),
+                  _SearchWidget(),
                 ],
               ),
             ),
@@ -94,9 +94,11 @@ class _DisplayWeatherWidget extends StatelessWidget {
 }
 
 class _SearchWidget extends StatelessWidget {
-  const _SearchWidget({
+  _SearchWidget({
     Key? key,
   }) : super(key: key);
+
+  final _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -104,9 +106,10 @@ class _SearchWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         children: [
-          const Expanded(
+          Expanded(
             child: TextField(
-              decoration: InputDecoration(
+              controller: _controller,
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 label: Text('City'),
                 hintText: 'London',
@@ -115,7 +118,9 @@ class _SearchWidget extends StatelessWidget {
           ),
           const SizedBox(width: 20),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<HomeCubit>().getWeatherModel(city: _controller.text);
+            },
             child: const Text('Get'),
           ),
         ],
