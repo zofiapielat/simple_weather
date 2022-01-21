@@ -12,25 +12,43 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> getLastKnownWeatherModel() async {
     emit(const HomeState(status: Status.loading));
-    final weatherModel = await _weatherRepository.getLastKnownWeatherModel();
-    emit(
-      HomeState(
-        model: weatherModel,
-        status: Status.success,
-      ),
-    );
+    try {
+      final weatherModel = await _weatherRepository.getLastKnownWeatherModel();
+      emit(
+        HomeState(
+          model: weatherModel,
+          status: Status.success,
+        ),
+      );
+    } catch (error) {
+      emit(
+        HomeState(
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
   }
 
   Future<void> getWeatherModel({
     required String city,
   }) async {
     emit(const HomeState(status: Status.loading));
-    final weatherModel = await _weatherRepository.getWeatherModel(city: city);
-    emit(
-      HomeState(
-        model: weatherModel,
-        status: Status.success,
-      ),
-    );
+    try {
+      final weatherModel = await _weatherRepository.getWeatherModel(city: city);
+      emit(
+        HomeState(
+          model: weatherModel,
+          status: Status.success,
+        ),
+      );
+    } catch (error) {
+      emit(
+        HomeState(
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
+    }
   }
 }
