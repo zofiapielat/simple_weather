@@ -29,6 +29,7 @@ class HomePage extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(errorMessage),
+                backgroundColor: Colors.red,
               ),
             );
           }
@@ -80,10 +81,6 @@ class _DisplayWeatherWidget extends StatelessWidget {
             Text(
               weatherModel.temperature.toString(),
               style: Theme.of(context).textTheme.headline1,
-            ),
-            Text(
-              'degree',
-              style: Theme.of(context).textTheme.headline5,
             ),
             const SizedBox(height: 60),
             Text(
