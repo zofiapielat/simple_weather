@@ -40,16 +40,21 @@ class HomePage extends StatelessWidget {
               title: const Text('Temperature'),
             ),
             body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (weatherModel != null)
-                    _DisplayWeatherWidget(
-                      weatherModel: weatherModel,
-                    ),
-                  _SearchWidget(),
-                ],
-              ),
+              child: Builder(builder: (context) {
+                if (state.status == Status.loading) {
+                  return const Text('Loading');
+                }
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (weatherModel != null)
+                      _DisplayWeatherWidget(
+                        weatherModel: weatherModel,
+                      ),
+                    _SearchWidget(),
+                  ],
+                );
+              }),
             ),
           );
         },
