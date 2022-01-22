@@ -10,26 +10,6 @@ class HomeCubit extends Cubit<HomeState> {
 
   final WeatherRepository _weatherRepository;
 
-  Future<void> getLastKnownWeatherModel() async {
-    emit(const HomeState(status: Status.loading));
-    try {
-      final weatherModel = await _weatherRepository.getLastKnownWeatherModel();
-      emit(
-        HomeState(
-          model: weatherModel,
-          status: Status.success,
-        ),
-      );
-    } catch (error) {
-      emit(
-        HomeState(
-          status: Status.error,
-          errorMessage: error.toString(),
-        ),
-      );
-    }
-  }
-
   Future<void> getWeatherModel({
     required String city,
   }) async {

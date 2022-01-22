@@ -17,18 +17,4 @@ class WeatherRepository {
     final weateherModel = WeatherModel.fromJson(weateherJson);
     return weateherModel;
   }
-
-  Future<WeatherModel?> getLastKnownWeatherModel() async {
-    const String? city = null; // TODO: get it from shared_preferences
-    if (city == null) {
-      return null;
-    }
-    final weateherJson =
-        await _weatherRemoteDataSource.getWeatherJson(city: city);
-    if (weateherJson == null) {
-      return null;
-    }
-    final weateherModel = WeatherModel.fromJson(weateherJson);
-    return weateherModel;
-  }
 }
